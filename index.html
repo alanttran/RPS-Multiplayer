@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RPS Multiplayer</title>
+
+    <!-- bootstrap cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+	<h1>Rock Paper Scissors Game!</h1>
+	<div class="container">
+		<div class="col-md-6">
+			<h2>Opponent's Choice</h2>
+			<h4><span class="player-wins">Wins: 0</span> <span class="player-losses">Losses: 0</span></h4>
+			<div class="player2-choice player2-rock"><img src="assets/images/rock.png" alt=""></div>
+			<div class="player2-choice player2-paper"><img src="assets/images/paper.png" alt=""></div>
+			<div class="player2-choice player2-scissor"><img src="assets/images/scissors.png" alt=""></div>
+
+			<h2>Your Choice</h2>
+			<h4><span class="player-wins">Wins: 0</span> <span class="player-losses">Losses: 0</span></h4>
+			<button class="player-choice-button" data-value="rock"><img src="assets/images/rock.png" alt=""></button>
+			<button class="player-choice-button" data-value="paper"><img src="assets/images/paper.png" alt=""></button>
+			<button class="player-choice-button" data-value="scissors"><img src="assets/images/scissors.png" alt=""></button>
+		</div>
+		<div class="col-md-6">
+			<div class="chat-box layout-column">
+				<div class="chat-box__main flex-auto">
+					
+				</div>
+				<div class="chat-box__footer flex-none">
+					<form class="layout-row">
+						<input type="text" class="form-control flex-auto" placeholder="Chat here">
+						<button type="submit" class="btn btn-primary flex-none">Send</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</body>
+
+</html>
+
+<!-- jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap cdn -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Firebase Reference -->
+<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+
+<!-- my javascript files -->
+<script src="assets/javascript/script.js"></script>
+

@@ -1,0 +1,54 @@
+h1{
+	text-align: center;
+	margin-bottom: 30px;
+}
+.chat-box{
+	height:500px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.chat-box__footer{
+	border-top: 1px solid lightgray;
+	padding-top: 20px;
+}
+
+.chat-box__footer .form-control{
+	margin-right: 10px;
+}
+
+.layout-row{
+	display: flex;
+	flex-direction: row;
+}
+.layout-column{
+	display: flex;
+	flex-direction: column;
+}
+.flex-auto{
+	flex: 1 1 auto;
+}
+.flex-none{
+	flex: 0 0 auto;
+}
+
+.player-choice-button{
+	width: 150px;
+	padding: 25px;
+	border-radius: 50%;
+}
+.player2-choice{
+	width: 150px;
+	padding: 25px;
+	border-radius: 50%;
+	border: 1px solid lightgray;
+	display: inline-block;
+}
+.player2-choice img{
+	opacity: 0.5;
+}
+.player-choice-button img, .player2-choice img{
+	width: 100%;
+}
+

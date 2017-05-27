@@ -17,6 +17,7 @@ var database = firebase.database();
 // connectionsRef references a specific location in our database.
 // All of our connections will be stored in this directory.
 var playersRef = database.ref("/players");
+var chatRef = database.ref("/chat");
 
 // '.info/connected' is a special location provided by Firebase that is updated every time
 // the client's connection state changes.
@@ -24,8 +25,6 @@ var playersRef = database.ref("/players");
 var connectedRef = database.ref(".info/connected");
 
 var connection = false;
-var player1added = false;
-var numOfPlayers;
 var playerKeyArray;
 var wins = 0;
 var losses = 0;
@@ -34,7 +33,6 @@ var theyHaveChosen = false;
 var myChoice = "none";
 var theirChoice = "none";
 var myRef = playersRef.push();
-//console.log(myRef.key);
 var myKey = myRef.key;
 
 // When the client's connection state changes...
@@ -48,12 +46,14 @@ connectedRef.on("value", function(snap) {
 
 });
 
+chatRef.remove();
+
 // creates a player object to the connection instance up to 2 players.
 playersRef.once('value').then(function(snap) {
     if (connection) {
-        numOfPlayers = snap.numChildren();
+        var numOfPlayers = snap.numChildren();
         //console.log(snap.numChildren());
-        if (snap.numChildren() < 2) {
+        if (numOfPlayers < 2) {
             myRef.set({
                 player: myRef.key,
                 choice: 'none',
@@ -65,6 +65,7 @@ playersRef.once('value').then(function(snap) {
         if (typeof myRef !== "undefined") {
             myRef.onDisconnect().remove();
         }
+        
     }
 })
 
@@ -73,19 +74,33 @@ playersRef.once('value').then(function(snap) {
 playersRef.on("value", function(snap) {
     //console.log(snap.val());
     //console.log(Object.getOwnPropertyNames(snap.val()));
-    playerKeyArray = Object.getOwnPropertyNames(snap.val());
+    if(snap.val() != null){
+    	playerKeyArray = Object.getOwnPropertyNames(snap.val());
+    }
+    
     //console.log(JSON.stringify(playerKeyArray[0]));
     //keyArray = JSON.stringify(keyArray[0]);
     //console.log(snap.val().playerKey);
+
+    // hide loading screen once second player joins, otherwise hide
+    // enable player buttons once second player joins
+    if(snap.numChildren() === 2){
+    	$('.opponent-missing').hide();
+    	$('.opponent-available').show();
+    	$('.player-choice-button').removeAttr("disabled");
+    }
+    else{
+    	$('.opponent-missing').show();
+    	$('.opponent-available').hide();
+    	$('.player-choice-button').attr("disabled", "disabled");
+    }
 })
 
-// when child change, determine who chose what
+// when child change, determine whether it is me or opponent
+// update score
+// once both players have chosen, call function compare choices
 playersRef.on("child_changed", function(snap) {
     var changedProperty = snap.val();
-    //console.log('childchanged');
-    //console.log(changedProperty);
-
-
 
     // determine array index for me and my opponent
     var myIndex = playerKeyArray.indexOf(myKey);
@@ -112,13 +127,12 @@ playersRef.on("child_changed", function(snap) {
     } else {
         updateOpponentScore(changedProperty.wins, changedProperty.losses);
     }
-
-	//console.log("players chosen " + iHaveChosen + " " + theyHaveChosen);
+	
 	// once both players have chosen, compare their choices
 	if (iHaveChosen === true && theyHaveChosen === true) {
 	    theyHaveChosen = false;
 	    iHaveChosen = false;
-	    console.log("they have both chosen!");
+	    //console.log("they have both chosen!");
 	    compare(myChoice, theirChoice);
 
 	}
@@ -126,9 +140,10 @@ playersRef.on("child_changed", function(snap) {
 
 
 // update my choice to firebase
+// resets button classes
 $('.player-choice-button').on('click', function() {
-    $('.opponent-choice-button').removeClass('opponent-chosen');
-    $('.player-choice-button').removeClass('btn-info');
+    clearButtonStyles();
+
     $(this).addClass('btn-info');
 
     myRef.update({
@@ -139,6 +154,12 @@ $('.player-choice-button').on('click', function() {
 // compares and highlights each players choices and updates their player profile on who won or lost
 function compare(myChoice, theirChoice) {
     $('.opponent-' + theirChoice).addClass('opponent-chosen');
+    $(".opponent-chosen").animate({
+          backgroundColor: "#fff",
+        }, 4000 );
+    $(".btn-info").animate({
+          backgroundColor: "#DCDCDC",
+        }, 4000 );
     console.log(myChoice + " " + theirChoice);
     if (myChoice === theirChoice) {
         console.log("it is a tie!");
@@ -158,25 +179,29 @@ function compare(myChoice, theirChoice) {
     }
 }
 
+// updates my score
 function updateMyScore(wins, losses) {
     $('.player-wins').text(wins);
     $('.player-losses').text(losses);
 }
 
+// updates opponent score
 function updateOpponentScore(wins, losses) {
     $('.opponent-wins').text(wins);
     $('.opponent-losses').text(losses);
 }
 
-function clearButtonChoice() {
-    //$('.player-choice-button').removeClass('btn-info');
+function clearButtonStyles() {
+    $('.opponent-choice-button').removeClass('opponent-chosen');
+    $('.opponent-choice-button').attr('style',"");
+    $('.player-choice-button').removeClass('btn-info');
+    $('.player-choice-button').attr('style',"");
 }
 
 function iTied() {
     myRef.update({
         choice: "none"
     });
-    clearButtonChoice();
 }
 
 function iWon() {
@@ -185,7 +210,6 @@ function iWon() {
         wins: wins,
         choice: "none"
     });
-    clearButtonChoice();
 }
 
 function iLost() {
@@ -194,5 +218,50 @@ function iLost() {
         losses: losses,
         choice: "none"
     });
-    clearButtonChoice();
 }
+
+
+//****************
+//
+// chat feature
+//
+//****************
+
+$('.js-send-chat').on('click', function(e){
+	e.preventDefault();
+	var string = $('.js-chat-input').val();
+	console.log(string);
+	chatRef.push({
+		player: myKey,
+		text: string
+	});
+	$('.js-chat-input').val("");
+	
+});
+
+$('.js-chat-input').keypress(function(e){
+	if (e.which == 13) {
+		e.preventDefault();
+		var string = $('.js-chat-input').val();
+		chatRef.push({
+			player: myKey,
+			text: string
+		});
+        $('.js-chat-input').val("");
+
+    }
+});
+
+chatRef.on('child_added', function(snap){
+	var chatLine = $('<div>').addClass('flex-none');
+
+	if(snap.val().player === myKey){
+
+		$('.chat-box__main').prepend(chatLine.html("<b style='color: blue'>Me:</b> " + snap.val().text));
+		
+	}
+	else{
+		$('.chat-box__main').prepend(chatLine.html("<b style='color: red'>Opponent:</b> " + snap.val().text))
+		
+	}
+});

@@ -1,17 +1,36 @@
+html, body{
+	height: 100%;
+	font-family: 'Chango', cursive;
+}
+body{
+	background-image: url('http://kenh14cdn.com/thumb_w/600/A3YmnWqkHeph7OwGyu6TwbX57tgTw/Image/2014/05/update/Rock_Paper_Scissor_Hold-96988.jpg');
+	background-position: left bottom;
+	background-repeat: no-repeat;
+	background-color: #332615;
+	color: white;
+}
+
 h1{
 	text-align: center;
 	margin-bottom: 30px;
+
 }
 .chat-box{
 	height:500px;
 	border: 1px solid gray;
 	border-radius: 5px;
-	padding: 20px;
+	padding: 20px 0 20px 20px;
+	background-color: white;
+	opacity: 0.9;
+	color: black;
+	font-family: 'Lato', sans-serif;
 }
 
 .chat-box__footer{
 	border-top: 1px solid lightgray;
 	padding-top: 20px;
+	margin-top: 14px;
+	margin-right: 20px;
 }
 
 .chat-box__footer .form-control{
@@ -34,19 +53,26 @@ h1{
 }
 
 .player-choice-button{
-	width: 150px;
+	width: 125px;
 	padding: 25px;
 	border-radius: 50%;
+	//background: gainsboro;
 }
-.player-choice-button:hover{
+.player-choice-button:not(.btn-info):hover{
+	background: silver;
+}
+.player-choice-button[disabled]{
 	background: lightgray;
+	opacity: 0.5;
 }
 .opponent-choice-button{
-	width: 150px;
+	width: 125px;
 	padding: 25px;
 	border-radius: 50%;
 	border: 1px solid lightgray;
 	display: inline-block;
+	background-color: white;
+	opacity: 0.7;
 }
 .opponent-choice-button img{
 	opacity: 0.5;
@@ -56,7 +82,7 @@ h1{
 }
 
 .opponent-chosen{
-	background: lightblue;
+	background: red;
 }
 
 .loading {
@@ -85,3 +111,17 @@ h1{
   }
 }
 
+.opponent-available{
+	display: none;
+}
+
+.chat-box__main{
+	display: flex;
+	flex-direction: column-reverse;
+	//justify-content: flex-end;
+	overflow-y: auto;
+
+}
+.chat-box_text-area{
+	min-height: 20px;
+}

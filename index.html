@@ -11,6 +11,8 @@
     <!-- bootstrap cdn -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Chango" rel="stylesheet">
+
     <!-- my stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -20,34 +22,37 @@
 	<h1>Rock Paper Scissors Game!</h1>
 	<div class="container">
 		<div class="col-md-6">
-		<div class = "opponent-missing">
-			<h4 class="loading">Waiting on Opponent</h4>
-		</div>
-		<div class="opponent-available">
-			
-		</div>
-			<h2>Opponent</h2>
-			<h4>Wins: <span class="opponent-wins">0</span><div>Losses: <span class="opponent-losses">0</span></div> </h4>
-			<div class="opponent-choice-button opponent-rock"><img src="assets/images/rock.png" alt=""></div>
-			<div class="opponent-choice-button opponent-paper"><img src="assets/images/paper.png" alt=""></div>
-			<div class="opponent-choice-button opponent-scissors"><img src="assets/images/scissors.png" alt=""></div>
+			<div class = "opponent-missing">
+				<h4 class="loading">Waiting on Opponent</h4>
+			</div>
+			<div class="opponent-available">
+				<h2>Opponent</h2>
+				<h4>Wins: <span class="opponent-wins">0</span><div>Losses: <span class="opponent-losses">0</span></div> </h4>
+				<div class="opponent-choice-button opponent-rock"><img src="assets/images/rock.png" alt=""></div>
+				<div class="opponent-choice-button opponent-paper"><img src="assets/images/paper.png" alt=""></div>
+				<div class="opponent-choice-button opponent-scissors"><img src="assets/images/scissors.png" alt=""></div>
+			</div>
 
 			<h2>You</h2>
 			<h4>Wins: <span class="player-wins">0</span> <div>Losses: <span class="player-losses">0</span></div></h4>
-			<button class="player-choice-button player-rock" data-value="rock"><img src="assets/images/rock.png" alt=""></button>
-			<button class="player-choice-button player-paper" data-value="paper"><img src="assets/images/paper.png" alt=""></button>
-			<button class="player-choice-button player-scissor" data-value="scissors"><img src="assets/images/scissors.png" alt=""></button>
+			<button class="player-choice-button player-rock" data-value="rock" disabled><img src="assets/images/rock.png" alt="" ></button>
+			<button class="player-choice-button player-paper" data-value="paper" disabled><img src="assets/images/paper.png" alt="" ></button>
+			<button class="player-choice-button player-scissor" data-value="scissors" disabled><img src="assets/images/scissors.png" alt="" ></button>
+			
+			
 		</div>
 		<div class="col-md-6">
 			<div class="chat-box layout-column">
 				<div class="chat-box__main flex-auto">
-					
+					<!-- <div class="chat-box_text-area">
+						
+					</div> -->
 				</div>
 				<div class="chat-box__footer flex-none">
-					<form class="layout-row">
-						<input type="text" class="form-control flex-auto" placeholder="Chat here">
-						<button type="submit" class="btn btn-primary flex-none">Send</button>
-					</form>
+					<div class="layout-row">
+						<input type="text" class="form-control flex-auto js-chat-input" placeholder="Chat here">
+						<button class="btn btn-primary js-send-chat flex-none">Send</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -59,6 +64,14 @@
 
 <!-- jquery cdn -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<!-- jqueryui cdn -->
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
+  <script src="http://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
 
 <!-- bootstrap cdn -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

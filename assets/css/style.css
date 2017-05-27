@@ -38,17 +38,50 @@ h1{
 	padding: 25px;
 	border-radius: 50%;
 }
-.player2-choice{
+.player-choice-button:hover{
+	background: lightgray;
+}
+.opponent-choice-button{
 	width: 150px;
 	padding: 25px;
 	border-radius: 50%;
 	border: 1px solid lightgray;
 	display: inline-block;
 }
-.player2-choice img{
+.opponent-choice-button img{
 	opacity: 0.5;
 }
-.player-choice-button img, .player2-choice img{
+.player-choice-button img, .opponent-choice-button img{
 	width: 100%;
+}
+
+.opponent-chosen{
+	background: lightblue;
+}
+
+.loading {
+  font-size: 30px;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
 }
 
